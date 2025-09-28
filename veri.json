@@ -1,0 +1,965 @@
+[
+  {
+    "id": 1,
+    "name": "AKRILIK 1",
+    "stcode": "AK2501-1",
+    "lot": 12,
+    "stock": 99999,
+    "price": 40,
+    "img": "img/AK2501-1.png"
+  },
+  {
+    "id": 2,
+    "name": "AKRILIK 2",
+    "stcode": "AK2501-2",
+    "lot": 12,
+    "stock": 99999,
+    "price": 40,
+    "img": "img/AK2501-2.png"
+  },
+  {
+    "id": 3,
+    "name": "AKRILIK 3",
+    "stcode": "AK2501-3",
+    "lot": 12,
+    "stock": 9999,
+    "price": 40,
+    "img": "img/AK2501-3.png"
+  },
+  {
+    "id": 4,
+    "name": "ASIMETRIK 1",
+    "stcode": "AS2501-1",
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/AS2501-1.png"
+  },
+  {
+    "id": 5,
+    "name": "ASIMETRIK 2",
+    "stcode": "AS2501-2",
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/AS2501-2.png"
+  },
+  {
+    "id": 6,
+    "name": "ASIMETRIK 3",
+    "stcode": "AS2502-1",
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/AS2502-1.png"
+  },
+  {
+    "id": 7,
+    "name": "ASIMETRIK 4",
+    "stcode": "AS2502-2",
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/AS2502-2.png"
+  },
+  {
+    "id": 8,
+    "name": "ASIMETRIK 5",
+    "stcode": "AS2503-1",
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/AS2503-1.png"
+  },
+  {
+    "id": 9,
+    "name": "ASIMETRIK 6",
+    "stcode": "AS2503-2",
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/AS2503-2.png"
+  },
+  {
+    "id": 10,
+    "name": "KATMAN -1",
+    "stcode": "KTM0001",
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/KTM0001.png"
+  },
+  {
+    "id": 11,
+    "name": "BURGULU-1",
+    "stcode": "BRG1111",
+    "lot": 12,
+    "stock": 20,
+    "price": 30,
+    "img": "img/BRG1111.png"
+  },
+  {
+    "id": 12,
+    "name": "BURGULU-2",
+    "stcode": "BRG1112",
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/BRG1112.png"
+  },
+  {
+    "id": 13,
+    "name": "BURGULU-3",
+    "stcode": "BRG1113",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/BRG1113.png"
+  },
+  {
+    "id": 14,
+    "name": "BURGULU-4",
+    "stcode": "BRG1114",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/BRG1114.png"
+  },
+  {
+    "id": 15,
+    "name": "CICEK KÜPE-1",
+    "stcode": "CCE5551",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/CCE5551.png"
+  },
+  {
+    "id": 16,
+    "name": "CICEK KÜPE-2",
+    "stcode": "CCE6661",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/CCE6661.png"
+  },
+  {
+    "id": 17,
+    "name": "MINELCICEK-1",
+    "stcode": "MNE7771",
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/MNE7771.png"
+  },
+  {
+    "id": 18,
+    "name": "MINELCICEK-2",
+    "stcode": "MNE8881",
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/MNE8881.png"
+  },
+  {
+    "id": 19,
+    "name": "MINELCICEK-3",
+    "stcode": "MNE9991",
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/MNE9991.png"
+  },
+  {
+    "id": 20,
+    "name": "MINELCICEK-4",
+    "stcode": "MNE0002",
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/MNE0002.png"
+  },
+  {
+    "id": 21,
+    "name": "MINELCICEK-5",
+    "stcode": "MNE1112",
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/MNE1112.png"
+  },
+  {
+    "id": 22,
+    "name": "DAMLA KÜPE",
+    "stcode": "DML2222",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/DML2222.png"
+  },
+  {
+    "id": 23,
+    "name": "DNZ YILDIZI",
+    "stcode": "DZ 3332",
+    "lot": 12,
+    "stock": 20,
+    "price": 30,
+    "img": "img/DZ 3332.png"
+  },
+  {
+    "id": 24,
+    "name": "DNZ YILDIZI-2",
+    "stcode": "DZ 4442",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/DZ 4442.png"
+  },
+  {
+    "id": 25,
+    "name": "FIYONKKÜPE-1",
+    "stcode": "FYO5552",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/FYO5552.png"
+  },
+  {
+    "id": 26,
+    "name": "FIYONKKÜPE-2",
+    "stcode": "FYO6662",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/FYO6662.png"
+  },
+  {
+    "id": 27,
+    "name": "FIYONKKÜPE-3",
+    "stcode": "FYO7772",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/FYO7772.png"
+  },
+  {
+    "id": 28,
+    "name": "FIYONKKÜPE-4",
+    "stcode": "FYO8882",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/FYO8882.png"
+  },
+  {
+    "id": 29,
+    "name": "FIYONKKÜPE-5",
+    "stcode": "FYO9992",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/FYO9992.png"
+  },
+  {
+    "id": 30,
+    "name": "HALKA KÜPE",
+    "stcode": "HLK0003",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/HLK0003.png"
+  },
+  {
+    "id": 31,
+    "name": "KARE KÜPE",
+    "stcode": "KRE1113",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/KRE1113.png"
+  },
+  {
+    "id": 32,
+    "name": "MINELIYAPRAK-1",
+    "stcode": "MNE2223",
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/MNE2223.png"
+  },
+  {
+    "id": 33,
+    "name": "MINELIYAPRAK-2",
+    "stcode": "MNE3333",
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/MNE3333.png"
+  },
+  {
+    "id": 34,
+    "name": "SALLANTILI",
+    "stcode": "SLL4443",
+    "lot": 12,
+    "stock": 20,
+    "price": 40,
+    "img": "img/SLL4443.png"
+  },
+  {
+    "id": 35,
+    "name": "MINELI KELEBEK",
+    "stcode": "MNE5553",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/MNE5553.png"
+  },
+  {
+    "id": 36,
+    "name": "YELPAZE KÜPE",
+    "stcode": "YLP6663",
+    "lot": 12,
+    "stock": 20,
+    "price": 30,
+    "img": "img/YLP6663.png"
+  },
+  {
+    "id": 37,
+    "name": "YILAN KÜPE",
+    "stcode": "YLA7773",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/YLA7773.png"
+  },
+  {
+    "id": 38,
+    "name": "CEMBER KÜPE -2",
+    "stcode": "CMB8883",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/CMB8883.png"
+  },
+  {
+    "id": 39,
+    "name": "CEMBER KÜPE",
+    "stcode": "CMB9993",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/CMB9993.png"
+  },
+  {
+    "id": 40,
+    "name": "KARE KÜPE-1",
+    "stcode": "KRE0004",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/KRE0004.png"
+  },
+  {
+    "id": 41,
+    "name": "KARE KÜPE-2",
+    "stcode": "KRE1114",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/KRE1114.png"
+  },
+  {
+    "id": 42,
+    "name": "DAMLA KÜPE-1",
+    "stcode": "DML2224",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/DML2224.png"
+  },
+  {
+    "id": 43,
+    "name": "DAMLA KÜPE-2",
+    "stcode": "DML3334",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/DML3334.png"
+  },
+  {
+    "id": 44,
+    "name": "FIYONK TOKA-1",
+    "stcode": "FYO4444",
+    "lot": 12,
+    "stock": 20,
+    "price": 30,
+    "img": "img/FYO4444.png"
+  },
+  {
+    "id": 45,
+    "name": "FIYONK TOKA-2",
+    "stcode": "FYO5554",
+    "lot": 12,
+    "stock": 20,
+    "price": 30,
+    "img": "img/FYO5554.png"
+  },
+  {
+    "id": 46,
+    "name": "SARMAL KÜPE-1",
+    "stcode": "SRM6664",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/SRM6664.png"
+  },
+  {
+    "id": 47,
+    "name": "SARMAL KÜPE-2",
+    "stcode": "SRM7774",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/SRM7774.png"
+  },
+  {
+    "id": 48,
+    "name": "DNZKABUĞU-1",
+    "stcode": "DZK8884",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/DZK8884.png"
+  },
+  {
+    "id": 49,
+    "name": "DNZKABUĞU-2",
+    "stcode": "DZK9994",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/DZK9994.png"
+  },
+  {
+    "id": 50,
+    "name": "KALPKÜPE-1",
+    "stcode": "KLP0005",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/KLP0005.png"
+  },
+  {
+    "id": 51,
+    "name": "KALPKÜPE-2",
+    "stcode": "KLP1115",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/KLP1115.png"
+  },
+  {
+    "id": 52,
+    "name": "SARMALKÜPE-1",
+    "stcode": "SRM2225",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/SRM2225.png"
+  },
+  {
+    "id": 53,
+    "name": "SARMALKÜPE-2",
+    "stcode": "SRM3335",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/SRM3335.png"
+  },
+  {
+    "id": 54,
+    "name": "DESENLIKÜPE-1",
+    "stcode": "DSE4445",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/DSE4445.png"
+  },
+  {
+    "id": 55,
+    "name": "DESENLIKÜPE-2",
+    "stcode": "DSE5555",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/DSE5555.png"
+  },
+  {
+    "id": 56,
+    "name": "HALKA KÜPE-1",
+    "stcode": "HLK6665",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/HLK6665.png"
+  },
+  {
+    "id": 57,
+    "name": "HALKA KÜPE-2",
+    "stcode": "HLK7775",
+    "lot": 12,
+    "stock": 20,
+    "price": 25,
+    "img": "img/HLK7775.png"
+  },
+  {
+    "id": 58,
+    "name": "FIYONK KÜPE-1",
+    "stcode": "FYO8885",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/FYO8885.png"
+  },
+  {
+    "id": 59,
+    "name": "FIYONK KÜPE-2",
+    "stcode": "FYO9995",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/FYO9995.png"
+  },
+  {
+    "id": 60,
+    "name": "YUVARLAKKÜPE-1",
+    "stcode": "YVA0006",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/YVA0006.png"
+  },
+  {
+    "id": 61,
+    "name": "YUVARLAKKÜPE-2",
+    "stcode": "YVA1116",
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/YVA1116.png"
+  },
+  {
+    "id": 62,
+    "name": "KLBKKÜPE",
+    "stcode": "KBK2226",
+    "lot": 12,
+    "stock": 20,
+    "price": null,
+    "img": "img/KBK2226.png"
+  },
+  {
+    "id": 63,
+    "name": "INCILISETKÜPE",
+    "stcode": "ICI3336",
+    "lot": 12,
+    "stock": 20,
+    "price": 30,
+    "img": "img/ICI3336.png"
+  },
+  {
+    "id": 64,
+    "name": null,
+    "stcode": "AA",
+    "lot": null,
+    "stock": null,
+    "price": null,
+    "img": "img/AA.png"
+  },
+  {
+    "id": 65,
+    "name": null,
+    "stcode": "AAAS1",
+    "lot": 12,
+    "stock": 20,
+    "price": null,
+    "img": "img/AAAS1.png"
+  },
+  {
+    "id": 66,
+    "name": "SALLANTILI -2",
+    "stcode": "SLL6666",
+    "lot": 12,
+    "stock": 20,
+    "price": 40,
+    "img": "img/SLL6666.png"
+  },
+  {
+    "id": 67,
+    "name": "SETKÜPE-1",
+    "stcode": "STK7776",
+    "lot": 12,
+    "stock": 20,
+    "price": 80,
+    "img": "img/STK7776.png"
+  },
+  {
+    "id": 68,
+    "name": "SETKÜPE-2",
+    "stcode": "STK8886",
+    "lot": 12,
+    "stock": 20,
+    "price": 70,
+    "img": "img/STK8886.png"
+  },
+  {
+    "id": 69,
+    "name": "SETKÜPE-3",
+    "stcode": "STK9996",
+    "lot": 12,
+    "stock": 20,
+    "price": 70,
+    "img": "img/STK9996.png"
+  },
+  {
+    "id": 70,
+    "name": "SETKÜPE-4",
+    "stcode": "STK0007",
+    "lot": 12,
+    "stock": 20,
+    "price": 70,
+    "img": "img/STK0007.png"
+  },
+  {
+    "id": 71,
+    "name": "SETKÜPE-5",
+    "stcode": "STK1117",
+    "lot": 12,
+    "stock": 20,
+    "price": 70,
+    "img": "img/STK1117.png"
+  },
+  {
+    "id": 72,
+    "name": "SETKÜPE-6",
+    "stcode": "STK2227",
+    "lot": 12,
+    "stock": 20,
+    "price": 70,
+    "img": "img/STK2227.png"
+  },
+  {
+    "id": 73,
+    "name": "SETKÜPE-7",
+    "stcode": "STK3337",
+    "lot": 12,
+    "stock": 20,
+    "price": 70,
+    "img": "img/STK3337.png"
+  },
+  {
+    "id": 74,
+    "name": "SETKÜPE-8",
+    "stcode": "STK4447",
+    "lot": 12,
+    "stock": 20,
+    "price": 70,
+    "img": "img/STK4447.png"
+  },
+  {
+    "id": 75,
+    "name": "KATMANLI-5",
+    "stcode": 75,
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/75.png"
+  },
+  {
+    "id": 76,
+    "name": "DENIZYLDIZI-5",
+    "stcode": 76,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/76.png"
+  },
+  {
+    "id": 77,
+    "name": "DENIZYLDIZI-6",
+    "stcode": 77,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/77.png"
+  },
+  {
+    "id": 78,
+    "name": "YAMUKKÜPE",
+    "stcode": 78,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/78.png"
+  },
+  {
+    "id": 79,
+    "name": "DESENLI KÜPE-1",
+    "stcode": 79,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/79.png"
+  },
+  {
+    "id": 80,
+    "name": "DESENLI KÜPE-2",
+    "stcode": 80,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/80.png"
+  },
+  {
+    "id": 81,
+    "name": "BITISIKKÜPE",
+    "stcode": 81,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/81.png"
+  },
+  {
+    "id": 82,
+    "name": "KATMANLI-5",
+    "stcode": 82,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/82.png"
+  },
+  {
+    "id": 83,
+    "name": "KATMANLI-6",
+    "stcode": 83,
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/83.png"
+  },
+  {
+    "id": 84,
+    "name": "KATMANLI-7",
+    "stcode": 84,
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/84.png"
+  },
+  {
+    "id": 85,
+    "name": "KATMANLI-8",
+    "stcode": 85,
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/85.png"
+  },
+  {
+    "id": 86,
+    "name": "KATMANLI-9",
+    "stcode": 86,
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/86.png"
+  },
+  {
+    "id": 87,
+    "name": null,
+    "stcode": 87,
+    "lot": 12,
+    "stock": 20,
+    "price": null,
+    "img": "img/87.png"
+  },
+  {
+    "id": 88,
+    "name": "DUDAKKÜPE",
+    "stcode": 88,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/88.png"
+  },
+  {
+    "id": 89,
+    "name": "DAMLA KÜPE",
+    "stcode": 89,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/89.png"
+  },
+  {
+    "id": 90,
+    "name": "DAMLA KÜPE",
+    "stcode": 90,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/90.png"
+  },
+  {
+    "id": 91,
+    "name": "KAREKÜPE-1",
+    "stcode": 91,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/91.png"
+  },
+  {
+    "id": 92,
+    "name": "KAREKÜPE-2",
+    "stcode": 92,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/92.png"
+  },
+  {
+    "id": 93,
+    "name": "YILDIZKÜPE-1",
+    "stcode": 93,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/93.png"
+  },
+  {
+    "id": 94,
+    "name": "YILDIZKÜPE-2",
+    "stcode": 94,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/94.png"
+  },
+  {
+    "id": 95,
+    "name": "YILDIZKÜPE-3",
+    "stcode": 95,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/95.png"
+  },
+  {
+    "id": 96,
+    "name": "DAMLA KÜPE-1",
+    "stcode": 96,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/96.png"
+  },
+  {
+    "id": 97,
+    "name": "DAMLA KÜPE-2",
+    "stcode": 97,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/97.png"
+  },
+  {
+    "id": 98,
+    "name": "KALP KÜPE-1",
+    "stcode": 98,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/98.png"
+  },
+  {
+    "id": 99,
+    "name": "FIYONKKÜPE-1",
+    "stcode": 99,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/99.png"
+  },
+  {
+    "id": 100,
+    "name": "FIYONKÜPE-2",
+    "stcode": 100,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/100.png"
+  },
+  {
+    "id": 101,
+    "name": "SETKÜPE-1",
+    "stcode": 101,
+    "lot": 12,
+    "stock": 20,
+    "price": 20,
+    "img": "img/101.png"
+  },
+  {
+    "id": 102,
+    "name": "SETKÜPE-2",
+    "stcode": 102,
+    "lot": 12,
+    "stock": 20,
+    "price": 60,
+    "img": "img/102.png"
+  },
+  {
+    "id": 103,
+    "name": "SETKÜPE-3",
+    "stcode": 103,
+    "lot": 12,
+    "stock": 20,
+    "price": 50,
+    "img": "img/103.png"
+  },
+  {
+    "id": 104,
+    "name": "KELEBEK -2",
+    "stcode": "KELEBEK00",
+    "lot": 12,
+    "stock": 20,
+    "price": 35,
+    "img": "img/KELEBEK00.png"
+  },
+  {
+    "id": 105,
+    "name": "SET KÜPE 09",
+    "stcode": "SET12",
+    "lot": 12,
+    "stock": 20,
+    "price": 60,
+    "img": "img/SET12.png"
+  },
+  {
+    "id": 106,
+    "name": "SET KÜPE 10",
+    "stcode": "SET13",
+    "lot": 12,
+    "stock": 20,
+    "price": 60,
+    "img": "img/SET13.png"
+  },
+  {
+    "id": 107,
+    "name": "SET KÜPE 11",
+    "stcode": "SET14",
+    "lot": 12,
+    "stock": 20,
+    "price": 60,
+    "img": "img/SET14.png"
+  }
+]

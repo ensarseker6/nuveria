@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Excel → JSON Dönüştürücü</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;margin:20px;background:#f7f9fc}
+    .container{max-width:980px;margin:0 auto;background:#fff;padding:18px;border-radius:8px;box-shadow:0 6px 20px rgba(10,20,40,0.06)}
+    h1{margin:0 0 12px;font-size:20px}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .col{flex:1 1 300px}
+    label{display:block;font-size:13px;margin-bottom:6px}
+    input[type=file]{display:block}
+    select,input[type=text],textarea,button{width:100%;padding:10px;border:1px solid #dfe6ef;border-radius:6px;font-size:14px}
+    textarea{height:220px;font-family:monospace;white-space:pre-wrap}
+    .actions{display:flex;gap:8px}
+    .small{font-size:13px;color:#555}
+    @media(max-width:640px){.row{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Excel / CSV → JSON</h1>
+    <p>Excel (.xlsx, .xls) veya CSV yükleyin, JSON'a dönüştürün ve bilgisayarınıza indirin.</p>
+
+    <div class="row">
+      <div class="col">
+        <label for="file">Dosya seç (xlsx, xls, csv)</label>
+        <input id="file" type="file" accept=".xlsx,.xls,.csv" />
+      </div>
+
+      <div class="col">
+        <label for="sheetSelect">Sayfa seç / CSV için boş bırakın</label>
+        <select id="sheetSelect"><option value="">(Henüz dosya yüklenmedi)</option></select>
+      </div>
+
+      <div class="col">
+        <label for="options">Seçenekler</label>
+        <select id="options">
+          <option value="array">Her satır bir obje (varsayılan)</option>
+          <option value="indexed">Indexed (sütun başlığı yoksa)</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="margin-top:12px" class="row">
+      <div class="col">
+        <label><input type="checkbox" id="idMap" /> &nbsp;Çıktıyı <code>[{{id,title,body}}]</code> formatında almak istiyorum (ilk 3 sütun: id,title,body)</label>
+        <div class="small">Bu seçenek işaretlendiğinde her satır için <code>{"id":1,"title":"...","body":"..."}</code> yapısı oluşturulur. id sayıya çevrilmeye çalışılır.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:12px" class="row">
+      <div class="col">
+        <label for="preview">JSON önizleme</label>
+        <textarea id="preview" placeholder="JSON buraya gelecek..." readonly></textarea>
+      </div>
+    </div>
+
+    <div style="margin-top:12px" class="actions">
+      <button id="convert">Dönüştür</button>
+      <button id="save" disabled>JSON'u Kaydet</button>
+      <button id="copy" disabled>Panoya Kopyala</button>
+      <input id="filename" type="text" value="converted.json" style="max-width:220px" />
+    </div>
+
+    <p style="margin-top:12px;font-size:13px;color:#555">Not: Bu sayfa tarayıcıda çalışır; dosyalar sunucuya gönderilmez.</p>
+  </div>
+
+  <!-- SheetJS (xlsx) -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <!-- PapaParse (CSV parsing) -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <script>
+    const fileInput = document.getElementById('file');
+    const sheetSelect = document.getElementById('sheetSelect');
+    const preview = document.getElementById('preview');
+    const convertBtn = document.getElementById('convert');
+    const saveBtn = document.getElementById('save');
+    const copyBtn = document.getElementById('copy');
+    const filenameInput = document.getElementById('filename');
+    const optionsSelect = document.getElementById('options');
+    const idMapCheckbox = document.getElementById('idMap');
+
+    let lastWorkbook = null;
+    let lastCsvText = null;
+
+    fileInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const name = file.name.toLowerCase();
+      sheetSelect.innerHTML = '';
+      preview.value = '';
+      saveBtn.disabled = true;
+      copyBtn.disabled = true;
+      lastWorkbook = null;
+      lastCsvText = null;
+
+      if (name.endsWith('.csv')) {
+        const txt = await file.text();
+        lastCsvText = txt;
+        const opt = document.createElement('option');
+        opt.value = '__csv__';
+        opt.textContent = 'CSV (tek "sheet")';
+        sheetSelect.appendChild(opt);
+        sheetSelect.value = '__csv__';
+        preview.value = '// CSV yüklendi. "Dönüştür" butonuna basın.';
+      } else {
+        const ab = await file.arrayBuffer();
+        const data = new Uint8Array(ab);
+        const wb = XLSX.read(data, { type: 'array' });
+        lastWorkbook = wb;
+        wb.SheetNames.forEach((s) => {
+          const opt = document.createElement('option');
+          opt.value = s;
+          opt.textContent = s;
+          sheetSelect.appendChild(opt);
+        });
+        sheetSelect.selectedIndex = 0;
+        preview.value = '// Excel dosyası yüklendi. Sayfa seçilip "Dönüştür" butonuna basılabilir.';
+      }
+    });
+
+    function mapRowToIdTitleBody(arr) {
+      // arr may be object (if header parsed) or array
+      if (!arr) return null;
+      if (Array.isArray(arr)) {
+        const idRaw = arr[0];
+        const title = arr[1] != null ? String(arr[1]) : '';
+        const body = arr[2] != null ? String(arr[2]) : '';
+        const id = (idRaw === null || idRaw === undefined || idRaw === '') ? null : Number(idRaw);
+        return { id: id, title: title, body: body };
+      } else {
+        // object with keys -> take first three values
+        const values = Object.values(arr);
+        return mapRowToIdTitleBody(values);
+      }
+    }
+
+    convertBtn.addEventListener('click', () => {
+      const sel = sheetSelect.value;
+      if (!sel) { alert('Önce bir dosya yükleyin.'); return; }
+
+      let json = null;
+
+      if (sel === '__csv__') {
+        const parsed = Papa.parse(lastCsvText, { header: true, dynamicTyping: false, skipEmptyLines: true });
+        if (parsed.errors && parsed.errors.length) {
+          console.warn('CSV parse hataları:', parsed.errors);
+        }
+        if (idMapCheckbox.checked) {
+          json = parsed.data.map(mapRowToIdTitleBody);
+        } else if (optionsSelect.value === 'indexed') {
+          json = parsed.data.map((row) => Object.values(row));
+        } else {
+          json = parsed.data;
+        }
+      } else {
+        const wb = lastWorkbook;
+        if (!wb) { alert('Geçerli bir Excel dosyası yok.'); return; }
+        const sheet = wb.Sheets[sel];
+        if (!sheet) { alert('Seçili sayfa bulunamadı.'); return; }
+        if (idMapCheckbox.checked) {
+          // get arrays so we can map by index
+          const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: null, blankrows: false });
+          // if first row looks like headers (all strings), skip it
+          let start = 0;
+          if (rows.length > 0 && rows[0].every(c => typeof c === 'string')) start = 1;
+          const mapped = [];
+          for (let i = start; i < rows.length; i++) mapped.push(mapRowToIdTitleBody(rows[i]));
+          json = mapped;
+        } else if (optionsSelect.value === 'indexed') {
+          json = XLSX.utils.sheet_to_json(sheet, { header: 1, blankrows: false });
+        } else {
+          json = XLSX.utils.sheet_to_json(sheet, { defval: null });
+        }
+      }
+
+      try {
+        // ensure IDs are numbers or null, and output pretty JSON
+        const pretty = JSON.stringify(json, function(key, value) {
+          // ensure undefined -> null
+          if (value === undefined) return null;
+          return value;
+        }, 2);
+        preview.value = pretty;
+        saveBtn.disabled = false;
+        copyBtn.disabled = false;
+
+        // If user asked for idMap, and filename default, change filename
+        if (idMapCheckbox.checked && filenameInput.value === 'converted.json') filenameInput.value = 'posts.json';
+      } catch (err) {
+        preview.value = 'JSON oluşturulurken hata: ' + err.message;
+      }
+    });
+
+    saveBtn.addEventListener('click', () => {
+      const text = preview.value;
+      if (!text) return alert('Önce dönüştürün.');
+      const name = filenameInput.value.trim() || 'converted.json';
+      const blob = new Blob([text], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(preview.value);
+        alert('Kopyalandı.');
+      } catch (e) {
+        alert('Kopyalama başarısız: ' + e.message);
+      }
+    });
+  </script>
+</body>
+</html>

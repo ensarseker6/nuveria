@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Ürün Seçim ve Sipariş Sistemi</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+/* Genel */
+body {
+  background: #f4f7fb;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Kartlar */
+.card {
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Sadece ürün kartları hover olacak */
+.product.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  background: #f8f9fa;
+}
+
+/* Ürün */
+.product p { margin: 0; }
+
+/* Ürün seçildiğinde */
+.product.selected {
+  border: 3px solid #28a745 !important;
+  background: #f8fff9;
+}
+
+/* Resim box */
+.image-box {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  margin: 0 auto 10px auto;
+  border-radius: 12px;
+}
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Sepet */
+#cartItems div, #cartItemsMobile div {
+  background: #f9fafc;
+  padding: 6px 10px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+#cartItems button, #cartItemsMobile button {
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+/* Sepet Başlık */
+.card-title { font-weight: 600; color: #333; font-size: 1.2rem; }
+
+/* Toplam & Kargo Bilgisi */
+.total { font-size: 1.1rem; color: #222; }
+.shipping-info { font-size: 0.9rem; color: #28a745; font-style: italic; }
+
+/* Müşteri Bilgileri */
+.form-control {
+  border-radius: 10px;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+}
+.form-control:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.15rem rgba(40, 167, 69, 0.25);
+}
+
+/* Butonlar */
+.btn {
+  border-radius: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+.btn-success {
+  background: linear-gradient(135deg, #28a745, #218838);
+  border: none;
+}
+.btn-success:hover {
+  background: linear-gradient(135deg, #218838, #1e7e34);
+}
+.btn-outline-danger { border-width: 2px; }
+
+/* Ürün Kontrol Butonları */
+.controls button {
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  border-radius: 10px;
+}
+.count { font-size: 1.1rem; color: #333; }
+
+/* Başta adet butonları gizli */
+.controls { display: none; }
+.product.selected .controls { display: flex; }
+
+/* Masaüstü sidebar sabit */
+@media (min-width: 768px) {
+  .sidebar {
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+  }
+}
+
+/* Büyük önizleme kutusu */
+.preview-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 10px;
+}
+.preview-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+</style>
+</head>
+<body class="bg-light">
+
+<div class="container my-4">
+  <div class="row g-4">
+    <div class="col-md-4 sidebar d-none d-md-block">
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+          <h5 class="card-title mb-3">👤 Müşteri Bilgileri</h5>
+          <div class="mb-3">
+            <label for="name" class="form-label">Ad Soyad</label>
+            <input type="text" id="name" class="form-control" placeholder="Ahmet YILMAZ" oninput="saveCustomer()">
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">Adres</label>
+            <textarea id="address" class="form-control" rows="2" placeholder="Adres Giriniz" oninput="saveCustomer()"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">Cep Telefonu</label>
+            <input type="tel" id="phone" class="form-control" placeholder="05xx xxx xx xx" oninput="saveCustomer()">
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title text-center">🛒 Sepet</h5>
+          <div id="cartItems" class="mt-3"><p>Henüz ürün seçilmedi.</p></div>
+          <div class="total fw-bold text-end mt-3" id="cartTotal">Toplam: 0 TL</div>
+          <button class="btn btn-success w-100 mt-3" onclick="placeOrder()">📦 Sipariş Ver</button>
+          <button class="btn btn-outline-danger w-100 mt-2" onclick="clearCart()">❌ Sepeti Boşalt</button>
+          <div class="shipping-info text-center text-success mt-2" id="shippingInfo"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="d-block d-md-none mb-3">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title mb-3">👤 Müşteri Bilgileri</h5>
+            <div class="mb-3">
+              <label for="nameMobile" class="form-label">Ad Soyad</label>
+              <input type="text" id="nameMobile" class="form-control" placeholder="Ahmet YILMAZ" oninput="saveCustomer()">
+            </div>
+            <div class="mb-3">
+              <label for="addressMobile" class="form-label">Adres</label>
+              <textarea id="addressMobile" class="form-control" rows="2" placeholder="Adres giriniz" oninput="saveCustomer()"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="phoneMobile" class="form-label">Cep Telefonu</label>
+              <input type="tel" id="phoneMobile" class="form-control" placeholder="0585 123 45 67" oninput="saveCustomer()">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3" id="productsContainer"></div>
+
+      <div class="d-block d-md-none mt-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title text-center">🛒 Sepet</h5>
+            <div id="cartItemsMobile" class="mt-3"><p>Henüz ürün seçilmedi.</p></div>
+            <div class="total fw-bold text-end mt-3" id="cartTotalMobile">Toplam: 0 TL</div>
+            <button class="btn btn-success w-100 mt-3" onclick="placeOrder()">📦 Sipariş Ver</button>
+            <button class="btn btn-outline-danger w-100 mt-2" onclick="clearCart()">❌ Sepeti Boşalt</button>
+            <div class="shipping-info text-center text-success mt-2" id="shippingInfoMobile"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Büyük önizleme kutusu -->
+<div class="preview-box" id="previewBox">
+  <img src="" id="previewImg">
+</div>
+
+<script>
+let cart = {};
+let freeShippingLimit = 2000;
+
+// Müşteri bilgilerini kaydet / yükle
+function saveCustomer() {
+  const name = document.getElementById("name").value || document.getElementById("nameMobile").value;
+  const address = document.getElementById("address").value || document.getElementById("addressMobile").value;
+  const phone = document.getElementById("phone").value || document.getElementById("phoneMobile").value;
+  localStorage.setItem("customer", JSON.stringify({name,address,phone}));
+}
+function loadCustomer() {
+  const data = JSON.parse(localStorage.getItem("customer"));
+  if (data) {
+    ["name","address","phone"].forEach(id => {
+      document.getElementById(id).value = data[id] || "";
+      document.getElementById(id+"Mobile").value = data[id] || "";
+    });
+  }
+}
+
+// Sepeti boşalt
+function clearCart() {
+  cart = {};
+  document.querySelectorAll(".product.selected").forEach(p => p.classList.remove("selected"));
+  updateCart();
+}
+
+// Sepeti güncelle
+function updateCart() {
+  const cartItems = document.getElementById("cartItems");
+  const cartTotal = document.getElementById("cartTotal");
+  const shippingInfo = document.getElementById("shippingInfo");
+  const cartItemsMobile = document.getElementById("cartItemsMobile");
+  const cartTotalMobile = document.getElementById("cartTotalMobile");
+  const shippingInfoMobile = document.getElementById("shippingInfoMobile");
+
+  function renderCart(targetItems, targetTotal, targetShipping) {
+    targetItems.innerHTML = "";
+    const keys = Object.keys(cart);
+    if (keys.length === 0) {
+      targetItems.innerHTML = "<p>Henüz ürün seçilmedi.</p>";
+      targetTotal.innerText = "Toplam: 0 TL";
+      targetShipping.innerText = `📌 ${freeShippingLimit} TL ve üzeri kargo bedava`;
+      return;
+    }
+
+    let total = 0;
+    keys.forEach(product => {
+      const { count, price, code } = cart[product];
+      const subtotal = count * price;
+      total += subtotal;
+
+      const div = document.createElement("div");
+      div.classList.add("d-flex","justify-content-between","align-items-center","border-bottom","py-1","gap-2");
+      div.innerHTML = `<span>${product} (${code}) x${count}</span>
+                       <span>${subtotal} TL</span>
+                       <button class="btn btn-sm btn-outline-danger" onclick="removeItem('${product}')">❌</button>`;
+      targetItems.appendChild(div);
+    });
+
+    const shipping = total >= freeShippingLimit ? 0 : 150;
+    const shipDiv = document.createElement("div");
+    shipDiv.classList.add("d-flex","justify-content-between","py-1");
+    shipDiv.innerHTML = `<span>🚚 Kargo</span><span>${shipping} TL</span>`;
+    targetItems.appendChild(shipDiv);
+
+    targetTotal.innerText = "Toplam: " + (total + shipping) + " TL";
+    targetShipping.innerText = `📌 ${freeShippingLimit} TL ve üzeri kargo bedava`;
+  }
+
+  renderCart(cartItems, cartTotal, shippingInfo);
+  renderCart(cartItemsMobile, cartTotalMobile, shippingInfoMobile);
+}
+
+// Ürün sil
+function removeItem(productName) {
+  delete cart[productName];
+  document.querySelectorAll(".product").forEach(el => {
+    if (el.innerText.includes(productName)) el.classList.remove("selected");
+  });
+  updateCart();
+}
+
+// Ürün seçimi
+function selectProduct(el, productName, price, code) {
+  if (!el.classList.contains("selected")) {
+    el.classList.add("selected");
+    el.querySelector(".count").innerText = 12;
+    cart[productName] = { count: 12, price: price, code: code };
+    updateCart();
+  }
+}
+
+// Artır / Azalt
+function increase(event, btn, productName, price, stock) {
+  event.stopPropagation();
+  const countEl = btn.parentElement.querySelector(".count");
+  let newCount = parseInt(countEl.innerText) + 12;
+  if (newCount > stock) {
+    alert("Stokta yeterli ürün yok!");
+    return;
+  }
+  countEl.innerText = newCount;
+  cart[productName].count = newCount;
+  updateCart();
+}
+function decrease(event, btn, productName, price) {
+  event.stopPropagation();
+  const countEl = btn.parentElement.querySelector(".count");
+  let count = parseInt(countEl.innerText) - 12;
+  const product = btn.closest(".product");
+  if (count <= 0) {
+    product.classList.remove("selected");
+    delete cart[productName];
+  } else {
+    countEl.innerText = count;
+    cart[productName].count = count;
+  }
+  updateCart();
+}
+
+// Sipariş ver (WhatsApp)
+function placeOrder() {
+  if (Object.keys(cart).length === 0) {
+    alert("Lütfen önce ürün seçin!");
+    return;
+  }
+  let orderText = "📦 Sipariş Detayları:\n\n";
+  let total = 0;
+  Object.keys(cart).forEach(product => {
+    let { count, price, code } = cart[product];
+    let subtotal = count * price;
+    total += subtotal;
+    orderText += `- ${product} (${code}) x${count} = ${subtotal} TL\n`;
+  });
+  let shipping = total >= freeShippingLimit ? 0 : 150;
+  orderText += `\n🚚 Kargo: ${shipping} TL`;
+  orderText += `\n💰 Toplam: ${total + shipping} TL`;
+
+  const customer = JSON.parse(localStorage.getItem("customer") || "{}");
+  if (customer.name) orderText += `\n\n👤 Ad Soyad: ${customer.name}`;
+  if (customer.address) orderText += `\n🏠 Adres: ${customer.address}`;
+  if (customer.phone) orderText += `\n📱 Telefon: ${customer.phone}`;
+
+  let whatsappNumber = "905379901817";
+  let url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderText)}`;
+  window.open(url, "_blank");
+}
+
+// JSON’dan ürünleri çek
+async function loadProducts() {
+  try {
+    loadCustomer();
+    const response = await fetch('veri.json');
+    const data = await response.json();
+    const container = document.getElementById("productsContainer");
+
+    data.forEach(product => {
+      const col = document.createElement("div");
+      col.classList.add("col-6","col-lg-4");
+      col.innerHTML = `
+        <div class="card product h-100 text-center p-2" onclick="selectProduct(this,'${product.name}',${product.price},'${product.stcode}')">
+          <div class="card-body">
+            <div class="image-box"><img src="${product.img}"></div>
+            <p>${product.name}</p>
+            <p class="text-muted">${product.stcode}</p>
+            <p class="fw-bold text-success">${product.price} TL</p>
+            <div class="controls justify-content-center align-items-center gap-2">
+              <button class="btn btn-sm btn-danger" onclick="decrease(event,this,'${product.name}',${product.price})">-</button>
+              <span class="count fw-bold">12</span>
+              <button class="btn btn-sm btn-success" onclick="increase(event,this,'${product.name}',${product.price},${product.stock})">+</button>
+            </div>
+          </div>
+        </div>
+      `;
+      container.appendChild(col);
+    });
+
+    updateCart();
+    addHoverEnlargeEffect(); // hover/basılı tutma
+  } catch (e) {
+    console.error("Ürünler yüklenemedi:", e);
+  }
+}
+
+// Hover ve basılı tutma ile ayrı kutuda büyütme
+function addHoverEnlargeEffect() {
+  const previewBox = document.getElementById('previewBox');
+  const previewImg = document.getElementById('previewImg');
+
+  document.querySelectorAll('.product').forEach(product => {
+    let timeout;
+
+    product.addEventListener('mouseenter', () => {
+      const imgSrc = product.querySelector('img').src;
+      timeout = setTimeout(() => {
+        previewImg.src = imgSrc;
+        previewBox.style.display = 'flex';
+      }, 500);
+    });
+
+    product.addEventListener('mouseleave', () => {
+      clearTimeout(timeout);
+      previewBox.style.display = 'none';
+    });
+
+    product.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      const imgSrc = product.querySelector('img').src;
+      previewImg.src = imgSrc;
+      previewBox.style.display = 'flex';
+    });
+
+    product.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      previewBox.style.display = 'none';
+    });
+  });
+}
+
+window.onload = loadProducts;
+</script>
+
+</body>
+</html>
